@@ -2,9 +2,8 @@ package utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author dungnh3
@@ -44,5 +43,26 @@ public class DateUtils {
     public static String convertStringToString(String strDate, String inputFormat, String outputFormat) {
         Date date = convertStringToDate(strDate, inputFormat);
         return convertDateToString(date, outputFormat);
+    }
+
+    public static List<String> getListDate(String fromDate, String toDate, String inputFormat, String outputFormat) {
+        Date _fromDate = convertStringToDate(fromDate, inputFormat);
+        Date _toDate = convertStringToDate(toDate, inputFormat);
+
+        HashSet<String> hashSet = new HashSet<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(_fromDate);
+
+        DateFormat dateFormat = new SimpleDateFormat(outputFormat);
+        while (calendar.getTime().before(_toDate)) {
+            Date date = calendar.getTime();
+            hashSet.add(dateFormat.format(date));
+            calendar.add(Calendar.DATE, 1);
+        }
+        hashSet.add(dateFormat.format(_toDate));
+
+        List<String> dates = new ArrayList<>(hashSet);
+        dates = dates.stream().sorted((r1, r2) -> r1.compareTo(r2)).collect(Collectors.toList());
+        return dates;
     }
 }
