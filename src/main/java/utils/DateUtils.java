@@ -40,6 +40,30 @@ public class DateUtils {
         }
     }
 
+    public static Date addTime(Date date, int number, int timeType) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        /**
+         * Sample
+         * calendar.add(Calendar.YEAR, 1);
+         * calendar.add(Calendar.MONTh, 1);
+         * calendar.add(Calendar.DATE, 1);
+         * calendar.add(Calendar.HOUR, 1);
+         * calendar.add(Calendar.MINUTE, 1);
+         * calendar.add(Calendar.SECOND, 1);
+         */
+        calendar.add(timeType, number);
+        Date result = calendar.getTime();
+        return result;
+    }
+
+    public static String addTime(String strDate, String formater, int number, int timeType) {
+        Date date = convertStringToDate(strDate, formater);
+        Date newDate = addTime(date, number, timeType);
+        String result = convertDateToString(newDate, formater);
+        return result;
+    }
+
     public static String convertStringToString(String strDate, String inputFormat, String outputFormat) {
         Date date = convertStringToDate(strDate, inputFormat);
         return convertDateToString(date, outputFormat);
