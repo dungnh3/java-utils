@@ -4,3 +4,11 @@ java-utils\.iml
 \.idea/
 
 target/
+
+.classpath
+
+.project
+
+.settings/
+
+.vscode/launch.json
